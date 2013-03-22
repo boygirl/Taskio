@@ -1,0 +1,17 @@
+<h2><%= @group.name %></h2>
+<div class="actions">
+    <%= link_to 'Create Task', new_group_task_path(@group) %> |
+    <%= link_to 'Edit', edit_group_path(@group) %> |
+    <%= link_to 'Delete', group_path(@group),
+          method: :delete,
+          confirm: "Are you sure you want to delete this task?" %> |
+    <%= link_to 'Back', '/' %>
+
+  </div>
+<ul>
+  <% @group.tasks.each do |task| %>
+    <h4><%= link_to task.title, [@group, task] %></h4>
+    <%= task.priority_string %>
+  <% end %>
+</ul>
+

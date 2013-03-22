@@ -1,9 +1,0 @@
-<h2>Check out your groups!</h2>
-<ul id='group_list'>
-  <% @membership.each do |membership| %>
-    <% @group = Group.find(membership.group_id) %>
-    <li id="<%= @group.name %>"><%= link_to @group.name, @group %>
-  <% end %>
-</ul>
-
-<%= link_to "Create Group", new_group_path %>

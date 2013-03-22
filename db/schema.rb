@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321210045) do
+ActiveRecord::Schema.define(:version => 20130322204521) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -41,7 +41,10 @@ ActiveRecord::Schema.define(:version => 20130321210045) do
     t.integer  "priority"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "group_id"
   end
+
+  add_index "tasks", ["group_id"], :name => "index_tasks_on_group_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
