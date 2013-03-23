@@ -1,0 +1,23 @@
+<h2>Profile</h2>
+
+<ul id='profile'>
+  <li>
+    <b>Name:</b>
+    <%= @profile.name %>
+  </li>
+  <li>
+    <b>Email:</b>
+    <%= User.find(@profile.user_id).email%>
+  </li>
+  <li>
+    <b>Phone:</b>
+    <%= @profile.phone %>
+  </li>
+  <li>
+    <b>About:</b>
+    <%= @profile.about %>
+  </li>
+</ul>
+<div class='actions'>
+  <%= link_to "Edit Profile", edit_profile_path(@profile) %>
+</div>

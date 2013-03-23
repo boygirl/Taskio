@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322204521) do
+ActiveRecord::Schema.define(:version => 20130322222927) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20130322204521) do
     t.integer "user_id"
     t.integer "group_id"
   end
+
+  create_table "profiles", :force => true do |t|
+    t.integer "user_id"
+    t.string  "name"
+    t.text    "about"
+    t.string  "phone"
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "subtasks", :force => true do |t|
     t.string   "title"
