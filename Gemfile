@@ -6,6 +6,7 @@ gem 'devise_invitable', '~> 1.1.0'
 gem 'dynamic_form', '1.1.4'
 gem 'bootstrap-sass', '2.1'
 gem 'cancan', '1.6.7'
+gem 'phony_rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
