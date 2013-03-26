@@ -4,8 +4,7 @@ class Membership < ActiveRecord::Base
   belongs_to :group
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :user_email, presence: true, format: { with: VALID_EMAIL_REGEX },
-            uniqueness: { case_sensitive: false }
+  validates :user_email, presence: true, format: { with: VALID_EMAIL_REGEX }
   after_create :invite_unknown_users
 
   private
