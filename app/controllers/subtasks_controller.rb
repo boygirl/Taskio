@@ -12,7 +12,7 @@ class SubtasksController < ApplicationController
     # @subtask.user = current_user
     if @subtask.save
       flash[:notice] = "Subtask has been created."
-      redirect_to tasks_path
+      redirect_to @task.group
     else
       flash[:alert] = "Subtask has not been created."
       render :action => "new"
@@ -28,7 +28,7 @@ class SubtasksController < ApplicationController
   def update
     if @subtask.update_attributes(params[:subtask])
       flash[:notice] = "Subtask has been updated."
-      redirect_to [@task, @subtask]
+      redirect_to @task.group
     else
       flash[:alert] = "Subtask has not been updated."
       render :action => :edit
@@ -38,7 +38,7 @@ class SubtasksController < ApplicationController
   def destroy
     @subtask.destroy
     flash[:notice] = "Your subtask has been deleted."
-    redirect_to tasks_path
+    redirect_to @task.group
   end
 
 private

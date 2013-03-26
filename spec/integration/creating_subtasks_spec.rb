@@ -1,19 +1,25 @@
 require "spec_helper"
 
 feature "Creating Subtasks" do
+  let!(:user)  { Factory(:confirmed_user) }
+  let!(:group) { Factory(:group, name: "my awesome team") }
+  let!(:membership) { Factory(:membership,
+      user_id: user.id, group_id: group.id) }
+
   before do
-      Factory(:task, :title => "House Cleaning")
-      user = Factory(:confirmed_user)
-      sign_in_as!(user)
-      visit '/tasks'
-    end
+    sign_in_as!(user)
+    visit '/'
+    click_link group.name
+    click_link "Create Task"
+    fill_in "Title", with: "Clean the house"
+    click_button "Create Task"
+  end
+
   scenario "create a subtask" do
       click_link "Create Subtask"
       fill_in "Title", with: "Clean the bathroom"
-      fill_in "Description", with: "really scrub it!"
       click_button "Create Subtask"
       page.should have_content("Subtask has been created.")
-      visit '/tasks'
       page.should have_content("Clean the bathroom")
   end
 

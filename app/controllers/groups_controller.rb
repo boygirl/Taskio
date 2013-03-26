@@ -1,11 +1,14 @@
 class GroupsController < ApplicationController
-
+before_filter :find_group, :only => [:show,
+                                       :edit,
+                                       :update,
+                                       :destroy]
   def index
 
   end
 
   def show
-    @group = Group.find(params[:id])
+    @tasks = @group.tasks
   end
 
   def new
@@ -25,11 +28,9 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
     if @group.update_attributes(params[:group])
       flash[:notice] = "Your group has been updated."
       redirect_to @group
@@ -40,7 +41,6 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
     @membership = Membership.where(group_id: @group.id)
     @membership.each do |membership|
       membership.destroy
@@ -49,5 +49,13 @@ class GroupsController < ApplicationController
     flash[:notice] = "Your group has been deleted."
     redirect_to '/'
   end
+
+  private
+    def find_group
+      @group = Group.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "The group you were looking for could not be found."
+      redirect_to root_path
+    end
 
 end

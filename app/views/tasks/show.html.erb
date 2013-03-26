@@ -2,36 +2,17 @@
 <ul id='task'>
     <h2><%= @task.title %></h2>
   <li>
-    <b>Description:</b>
-    <%= @task.description %>
-  </li>
-  <li>
     <b>Priority:</b>
     <%= @task.priority_string %>
   </li>
   <div class="actions">
-    <%= link_to 'Create Subtask', new_task_subtask_path(@task) %> |
-    <%= link_to 'Edit', edit_task_path(@task) %> |
-    <%= link_to 'Delete', task_path(@task),
+    <%= link_to 'Create Task', new_task_subtask_path(@task) %>
+    <%= link_to 'Edit', [:edit, @group, @task] %> |
+    <%= link_to 'Delete', [@group, @task],
           method: :delete,
           confirm: "Are you sure you want to delete this task?" %> |
-    <%= link_to 'Back', tasks_path %>
-
+    <%= link_to 'Back', @group %>
   </div>
-    <ul id-'subtask'>
-      <% @task.subtasks.each do |subtask| %>
-          <h4><%= link_to subtask.title, [@task, subtask] %></h4>
-        <li><b>Description: </b><%= subtask.description %></li>
-        <li><b>Priority: </b><%= subtask.priority_string %></li>
-      </br>
-      <div class="actions">
-    <%= link_to 'Edit', edit_task_subtask_path(@task, subtask) %> |
-    <%= link_to 'Delete', [@task, subtask],
-          method: :delete,
-          confirm: "Are you sure you want to delete this subtask?" %>
-  </div>
-      <% end %>
-    </ul>
 </ul>
 
 

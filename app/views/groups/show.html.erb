@@ -1,18 +1,41 @@
 <h2><%= @group.name %></h2>
-<div class="actions">
-    <%= link_to "Invite Collaborators", new_user_invitation_path %> |
-    <%= link_to 'Create Task', new_group_task_path(@group) %> |
-    <%= link_to 'Edit', edit_group_path(@group) %> |
-    <%= link_to 'Delete', group_path(@group),
-          method: :delete,
-          confirm: "Are you sure you want to delete this task?" %> |
-    <%= link_to 'Back', '/' %>
-
+<div id='group'>
+  <div class="actions">
+      <%= link_to "Invite Collaborators", new_user_invitation_path %> |
+      <%= link_to 'Create Task', new_group_task_path(@group) %> |
+      <%= link_to 'Edit', edit_group_path(@group) %> |
+      <%= link_to 'Delete', group_path(@group),
+            method: :delete,
+            confirm: "Are you sure you want to delete this group?" %> |
+      <%= link_to 'Back', '/' %>
+    </div>
   </div>
-<ul>
+<ul id='tasks'>
   <% @group.tasks.each do |task| %>
-    <h4><%= link_to task.title, [@group, task] %></h4>
-    <%= task.priority_string %>
+    <h4><%= link_to task.title, [@group, task] %>
+    <small><%= task.priority_string %> Priority</small></h4>
+    <div class="actions">
+      <%= link_to 'Create Subtask', new_task_subtask_path(task) %>
+      <%= link_to 'Edit', [:edit, task] %> |
+      <%= link_to 'Delete', task,
+            method: :delete,
+            confirm: "Are you sure you want to delete this task?" %>
+    </div>
+    <div id='subtasks'>
+      <% task.subtasks.each do |subtask| %>
+        <li>
+          <h6><%= link_to subtask.title, [task, subtask] %>
+          <small><%= subtask.priority_string %> Priority</small></h6>
+          <div class="actions">
+            <%= link_to 'Edit', [:edit, task, subtask] %> |
+            <%= link_to 'Delete', [task, subtask],
+            method: :delete,
+            confirm: "Are you sure you want to delete this task?" %>
+          </div>
+        </li>
+      <% end %>
+    </div>
   <% end %>
+
 </ul>
 

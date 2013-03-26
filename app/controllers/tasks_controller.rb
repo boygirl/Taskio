@@ -1,66 +1,56 @@
 class TasksController < ApplicationController
-
   before_filter :authenticate_user!
+  before_filter :find_group
+  before_filter :find_task, :only => [:show, :edit, :update, :destroy]
 
-  def index
-    @tasks = Task.all
-  end
-
-  # GET /tasks/1
-  # GET /tasks/1.json
-  def show
-    @task = Task.find(params[:id])
-  end
-
-  # GET /tasks/new
-  # GET /tasks/new.json
   def new
-    @task = Task.new
+    @task = @group.tasks.build
   end
 
-  # GET /tasks/1/edit
-  def edit
-    @task = Task.find(params[:id])
-  end
-
-  # POST /tasks
-  # POST /tasks.json
   def create
-    @task = Task.new(params[:task])
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Your task has been created.' }
-      else
-        flash[:alert] = "Your task was not created."
-        format.html { render action: "new" }
-      end
+    @task = @group.tasks.build(params[:task])
+    # @task.user = current_user
+    if @task.save
+      flash[:notice] = "Your task has been created."
+      redirect_to @group
+    else
+      flash[:alert] = "Your task has not been created."
+      render :action => "new"
     end
   end
 
-  # PUT /tasks/1
-  # PUT /tasks/1.json
+  def show
+  end
+
+  def edit
+  end
+
   def update
-    @task = Task.find(params[:id])
-
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-        format.html { redirect_to @task, notice: 'Your task has been updated.' }
-      else
-        flash[:alert] = "Your task was not updated."
-        format.html { render action: "edit" }
-      end
+    if @task.update_attributes(params[:task])
+      flash[:notice] = "Your task has been updated."
+      redirect_to @group
+    else
+      flash[:alert] = "Your task has not been updated."
+      render :action => :edit
     end
   end
 
-  # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
+    flash[:notice] = "Your task has been deleted."
+    redirect_to @group
+  end
 
-    respond_to do |format|
-      format.html { redirect_to tasks_url, alert: 'Your task has been deleted.' }
-    end
+private
+  def find_group
+    @group = Group.find(params[:group_id])
+    rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "The group you were looking " +
+                "for could not be found."
+    redirect_to root_path
+  end
+
+  def find_task
+    @task = @group.tasks.find(params[:id])
   end
 end
