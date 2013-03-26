@@ -8,12 +8,14 @@ class Task < ActiveRecord::Base
   belongs_to :group
 
   def priority_string
-    if :priority == 1
-      "High"
-    elsif :priority == 2
-      "Medium"
-    else
+    if self.priority == 1
       "Low"
+    elsif self.priority == 2
+      "Medium"
+    elsif self.priority == 3
+      "High"
+    else
+      "unset"
     end
   end
 end
