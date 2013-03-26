@@ -13,13 +13,14 @@ before_filter :find_group, :only => [:show,
 
   def new
     @group = Group.new
+    @membership = @group.memberships.build
   end
 
   def create
     @group = Group.new(params[:group])
-
+    @membership = @group.memberships.build(user_email: current_user.email)
     if @group.save
-      Membership.create(user_id: current_user.id, group_id: @group.id, user_email: current_user.email)
+      @membership.save
       redirect_to dashboard_path, :notice => "Your group has been created."
     else
       flash[:alert] = "Group has not been created."
@@ -41,11 +42,10 @@ before_filter :find_group, :only => [:show,
   end
 
   def destroy
-    @membership = Membership.where(group_id: @group.id)
+    @membership = Membership.where(group_id: @group.id).where(user_email: current_user.email)
     @membership.each do |membership|
       membership.destroy
     end
-    @group.destroy
     flash[:notice] = "Your group has been deleted."
     redirect_to '/'
   end
