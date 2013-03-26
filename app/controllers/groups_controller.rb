@@ -19,7 +19,7 @@ before_filter :find_group, :only => [:show,
     @group = Group.new(params[:group])
 
     if @group.save
-      Membership.create(user_id: current_user.id, group_id: @group.id)
+      Membership.create(user_id: current_user.id, group_id: @group.id, user_email: current_user.email)
       redirect_to dashboard_path, :notice => "Your group has been created."
     else
       flash[:alert] = "Group has not been created."

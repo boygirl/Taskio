@@ -1,7 +1,7 @@
 <h2><%= @group.name %></h2>
 <div id='group'>
   <div id="actions">
-      <%= link_to "Invite Collaborators", new_user_invitation_path %> |
+      <%= link_to "Invite Collaborators", new_group_membership_path(@group) %> |
       <%= link_to 'Create Task', new_group_task_path(@group) %> |
       <%= link_to 'Edit', edit_group_path(@group) %> |
       <%= link_to 'Delete', group_path(@group),

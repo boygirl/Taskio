@@ -4,7 +4,7 @@ feature "deleting groups" do
   let!(:user)  { Factory(:confirmed_user) }
   let!(:group) { Factory(:group, name: "my awesome team") }
   let!(:membership) { Factory(:membership,
-      user_id: user.id, group_id: group.id) }
+      user_email: user.email, group_id: group.id) }
 
   scenario "users can delete groups" do
     sign_in_as!(user)

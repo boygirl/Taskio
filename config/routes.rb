@@ -11,6 +11,7 @@ Taskio::Application.routes.draw do
   end
   resources :groups do
     resources :tasks
+    resources :memberships
   end
 
   resources :profiles, except: [:new, :create, :destroy]

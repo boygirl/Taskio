@@ -9,7 +9,6 @@ class TasksController < ApplicationController
 
   def create
     @task = @group.tasks.build(params[:task])
-    # @task.user = current_user
     if @task.save
       flash[:notice] = "Your task has been created."
       redirect_to @group
