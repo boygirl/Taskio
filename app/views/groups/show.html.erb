@@ -1,6 +1,6 @@
 <h2><%= @group.name %></h2>
 <div id='group'>
-  <div class="actions">
+  <div id="actions">
       <%= link_to "Invite Collaborators", new_user_invitation_path %> |
       <%= link_to 'Create Task', new_group_task_path(@group) %> |
       <%= link_to 'Edit', edit_group_path(@group) %> |
@@ -14,10 +14,10 @@
   <% @group.tasks.each do |task| %>
     <h4><%= link_to task.title, [@group, task] %>
     <small><%= task.priority_string %> Priority</small></h4>
-    <div class="actions">
-      <%= link_to 'Create Subtask', new_task_subtask_path(task) %>
-      <%= link_to 'Edit', [:edit, task] %> |
-      <%= link_to 'Delete', task,
+    <div id="actions">
+      <%= link_to 'Create Subtask', new_task_subtask_path(task) %> |
+      <%= link_to 'Edit', [:edit, @group, task] %> |
+      <%= link_to 'Delete', [@group, task],
             method: :delete,
             confirm: "Are you sure you want to delete this task?" %>
     </div>
@@ -26,7 +26,7 @@
         <li>
           <h6><%= link_to subtask.title, [task, subtask] %>
           <small><%= subtask.priority_string %> Priority</small></h6>
-          <div class="actions">
+          <div id="actions">
             <%= link_to 'Edit', [:edit, task, subtask] %> |
             <%= link_to 'Delete', [task, subtask],
             method: :delete,

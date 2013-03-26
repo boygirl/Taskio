@@ -5,18 +5,20 @@ feature "deleting tasks" do
   let!(:group) { Factory(:group, name: "my awesome team") }
   let!(:membership) { Factory(:membership,
       user_id: user.id, group_id: group.id) }
-  let!(:task) { Factory(:task, group: group) }
+  let!(:task) { Factory(:task, group_id: group.id) }
 
   before do
-    sign_in_as!(Factory(:confirmed_user))
+    sign_in_as!(user)
+    visit '/'
     click_link group.name
   end
 
   scenario "deleting a task" do
-    within("#tasks") do
+    within("#tasks #actions") do
       click_link "Delete"
     end
     page.should have_content("Your task has been deleted.")
+    page.should_not have_content(task.title)
   end
 
 end
