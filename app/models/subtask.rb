@@ -1,6 +1,6 @@
 class Subtask < ActiveRecord::Base
   belongs_to :task
-  attr_accessible :created_at, :description, :priority, :title
+  attr_accessible :created_at, :priority, :title
   validates :title, presence: true
 
   def priority_string
