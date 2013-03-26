@@ -6,11 +6,11 @@ feature "deleting groups" do
   let!(:membership) { Factory(:membership,
       user_email: user.email, group_id: group.id) }
 
-  scenario "users can delete groups" do
+  scenario "users can leave groups" do
     sign_in_as!(user)
     visit '/'
     click_link group.name
-    click_link "Delete"
+    click_link "Leave Group"
     page.should_not have_content("my awesome team")
   end
 end
