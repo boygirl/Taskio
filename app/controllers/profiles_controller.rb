@@ -22,6 +22,10 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def notify
+    Notifier.daily_email
+  end
+
   private
 
   def find_user

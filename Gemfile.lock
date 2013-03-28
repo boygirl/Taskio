@@ -81,6 +81,12 @@ GEM
     factory_girl (2.6.4)
       activesupport (>= 2.3.9)
     ffi (1.4.0)
+    gmail (0.4.0)
+      gmail_xoauth (>= 0.3.0)
+      mail (>= 2.2.1)
+      mime (>= 0.1)
+    gmail_xoauth (0.4.1)
+      oauth (>= 0.3.6)
     hike (1.2.1)
     i18n (0.6.4)
     journey (1.0.4)
@@ -97,9 +103,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.1)
+    mime (0.1)
     mime-types (1.21)
     multi_json (1.7.1)
     nokogiri (1.5.7)
+    oauth (0.4.7)
     orm_adapter (0.4.0)
     pg (0.14.1)
     phony (1.9.0)
@@ -211,6 +219,7 @@ DEPENDENCIES
   dynamic_form (= 1.1.4)
   email_spec (= 1.2.1)
   factory_girl (= 2.6.4)
+  gmail (= 0.4.0)
   jquery-rails
   launchy
   letter_opener

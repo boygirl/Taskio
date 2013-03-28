@@ -17,3 +17,6 @@
 
 #Ignore coverage files
 /coverage/*
+
+#Ignore mailer data
+config/initializers/mail.rb

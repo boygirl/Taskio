@@ -16,6 +16,7 @@ Taskio::Application.routes.draw do
 
   resources :profiles, except: [:new, :create, :destroy]
 
+  resources :notification, only: 'index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

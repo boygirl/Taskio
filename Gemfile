@@ -8,6 +8,7 @@ gem 'bootstrap-sass', '2.1'
 gem 'cancan', '1.6.7'
 gem 'phony_rails'
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
