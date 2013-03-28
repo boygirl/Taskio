@@ -8,12 +8,12 @@ class Notifier < ActionMailer::Base
     Membership.where(user_email: user_email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 1
-          content << task.title
+          content << "#{task.title}\n"
         end
       end
       Subtask.where(group_id: membership.group_id).each do |subtask|
         if subtask.priority == 1
-          content << subtask.title
+          content << "#{subtask.task.title}: #{subtask.title}\n"
         end
       end
     end
@@ -29,12 +29,12 @@ class Notifier < ActionMailer::Base
     Membership.where(user_email: user_email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 2
-          content << task.title
+          content << "#{task.title}\n"
         end
       end
       Subtask.where(group_id: membership.group_id).each do |subtask|
         if subtask.priority == 2
-          content << subtask.title
+          content << "#{subtask.task.title}: #{subtask.title}\n"
         end
       end
     end
@@ -43,22 +43,57 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  #priority = 3
-  def urgent_notification(user_email)
+#priority = 3
+  def urgent_email(user_email)
     content = ""
     address = user_email
-    logger.info 'email: ' + user_email
-    logger.info User.where(:email, user_email).first
-    phone = User.where(email: user_email).first.phone
     Membership.where(user_email: user_email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
-        if task.priority == 2
-          content << task.title
+        if task.priority == 3
+          content << "#{task.title}\n"
         end
       end
       Subtask.where(group_id: membership.group_id).each do |subtask|
-        if subtask.priority == 2
-          content << subtask.title
+        if subtask.priority == 3
+          content << "#{subtask.task.title}: #{subtask.title}\n"
+        end
+      end
+    end
+    unless content.empty?
+      mail(to: address, subject: "Urgent Tasks", body: content)
+    end
+  end
+  #ALL EMAIL not filtered by priority
+  def all_email(user_email)
+    content = ""
+    address = user_email
+    Membership.where(user_email: user_email).each do |membership|
+      Task.where(group_id: membership.group_id).each do |task|
+          content << "#{task.title}\n"
+      end
+      Subtask.where(group_id: membership.group_id).each do |subtask|
+          content << "#{subtask.task.title}: #{subtask.title}\n"
+      end
+    end
+    unless content.empty?
+      mail(to: address, subject: "Your Tasks", body: content)
+    end
+  end
+
+  #priority = 3 SMS only!
+  def text_notification(user_email)
+    content = ""
+    address = user_email
+    phone = User.where(email: user_email).first.phone
+    Membership.where(user_email: user_email).each do |membership|
+      Task.where(group_id: membership.group_id).each do |task|
+        if task.priority == 3
+          content << "#{task.title}\n"
+        end
+      end
+      Subtask.where(group_id: membership.group_id).each do |subtask|
+        if subtask.priority == 3
+          content << "#{subtask.task.title}: #{subtask.title}\n"
         end
       end
     end
@@ -71,10 +106,6 @@ class Notifier < ActionMailer::Base
         )
       end
     end
-
-    # unless content.empty?
-    #   mail(to: address, subject: "Daily Tasks", body: content)
-    # end
   end
 
 end

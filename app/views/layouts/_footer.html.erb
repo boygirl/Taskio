@@ -1,9 +1,11 @@
-<footer>
-  <nav>
+<footer class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class ="navbar-inner">
     <div class="container">
-      <% if user_signed_in? %>
+      <nav>
+        <% if user_signed_in? %>
           Signed in as <%= current_user.email %>
-      <% end %>
+        <% end %>
+      </nav>
     </div>
-  </nav>
+  </div>
 </footer>
