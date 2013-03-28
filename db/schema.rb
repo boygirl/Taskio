@@ -11,18 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326202441) do
+ActiveRecord::Schema.define(:version => 20130327223014) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "priority"
   end
 
   create_table "memberships", :force => true do |t|
     t.integer "user_id"
     t.integer "group_id"
     t.string  "user_email"
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "priority"
+    t.text     "todo"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "user_email"
+    t.string   "user_phone"
   end
 
   create_table "profiles", :force => true do |t|
@@ -40,8 +50,10 @@ ActiveRecord::Schema.define(:version => 20130326202441) do
     t.datetime "created_at", :null => false
     t.integer  "task_id"
     t.datetime "updated_at", :null => false
+    t.integer  "group_id"
   end
 
+  add_index "subtasks", ["group_id"], :name => "index_subtasks_on_group_id"
   add_index "subtasks", ["task_id"], :name => "index_subtasks_on_task_id"
 
   create_table "tasks", :force => true do |t|
@@ -77,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20130326202441) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "phone"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
