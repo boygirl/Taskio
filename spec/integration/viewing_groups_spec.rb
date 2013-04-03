@@ -5,7 +5,7 @@ feature "viewing groups" do
   let!(:group) { Factory(:group, name: "my awesome team") }
   let!(:not_your_group) { Factory(:group, name: "the other team") }
   let!(:membership) { Factory(:membership,
-      user_email: user.email, group_id: group.id) }
+      email: user.email, group_id: group.id) }
 
   scenario "users should only see their own groups" do
     sign_in_as!(user)

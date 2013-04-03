@@ -1,12 +1,12 @@
 <%= form_for [@group, @membership] do |f| %>
   <%= f.error_messages %>
+  <div>
+    <h4>Email</h4>
+    <h4><%= @membership.email%></h4> <br />
+  </div>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
   </div>
   <div class="field">
     <%= f.label :phone %><br />

@@ -9,6 +9,6 @@ class DashboardsController < ApplicationController
   private
 
   def find_membership
-    @membership = Membership.where(user_email: current_user.email)
+    @membership = Membership.where(email: current_user.email)
   end
 end

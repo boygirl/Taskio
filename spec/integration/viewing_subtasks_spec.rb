@@ -4,7 +4,7 @@ feature "viewing subtasks" do
   let!(:user)  { Factory(:confirmed_user) }
   let!(:group) { Factory(:group, name: "my awesome team") }
   let!(:membership) { Factory(:membership,
-      user_email: user.email, group_id: group.id) }
+      email: user.email, group_id: group.id) }
   let!(:task) { Factory(:task, group_id: group.id) }
   let!(:subtask) { Factory(:subtask, task_id: task.id) }
 

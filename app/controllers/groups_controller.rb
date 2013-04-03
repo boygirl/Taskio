@@ -9,6 +9,7 @@ before_filter :find_group, :only => [:show,
 
   def show
     @tasks = @group.tasks
+    @memberships = Membership.where(group_id: @group.id)
   end
 
   def new
@@ -18,7 +19,7 @@ before_filter :find_group, :only => [:show,
 
   def create
     @group = Group.new(params[:group])
-    @membership = @group.memberships.build(user_email: current_user.email)
+    @membership = @group.memberships.build(email: current_user.email)
     if @group.save
       @membership.save
       redirect_to dashboard_path, :notice => "Your group has been created."
@@ -42,7 +43,7 @@ before_filter :find_group, :only => [:show,
   end
 
   def destroy
-    @membership = Membership.where(group_id: @group.id).where(user_email: current_user.email)
+    @membership = Membership.where(group_id: @group.id).where(email: current_user.email)
     @membership.each do |membership|
       membership.destroy
     end
@@ -57,5 +58,4 @@ before_filter :find_group, :only => [:show,
       flash[:alert] = "The group you were looking for could not be found."
       redirect_to root_path
     end
-
 end

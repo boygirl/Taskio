@@ -2,10 +2,10 @@ class Notifier < ActionMailer::Base
   default from: "Taskio <laurentestsender@gmail.com>"
 
 #priority = 1
-  def weekly_email(user_email)
+  def weekly_email(email)
     content = ""
-    address = user_email
-    Membership.where(user_email: user_email).each do |membership|
+    address = email
+    Membership.where(email: email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 1
           content << "#{task.title}\n"
@@ -23,10 +23,10 @@ class Notifier < ActionMailer::Base
   end
 
   #priority = 2
-  def daily_email(user_email)
+  def daily_email(email)
     content = ""
-    address = user_email
-    Membership.where(user_email: user_email).each do |membership|
+    address = email
+    Membership.where(email: email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 2
           content << "#{task.title}\n"
@@ -44,10 +44,10 @@ class Notifier < ActionMailer::Base
   end
 
 #priority = 3
-  def urgent_email(user_email)
+  def urgent_email(email)
     content = ""
-    address = user_email
-    Membership.where(user_email: user_email).each do |membership|
+    address = email
+    Membership.where(email: email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 3
           content << "#{task.title}\n"
@@ -64,10 +64,10 @@ class Notifier < ActionMailer::Base
     end
   end
   #ALL EMAIL not filtered by priority
-  def all_email(user_email)
+  def all_email(email)
     content = ""
-    address = user_email
-    Membership.where(user_email: user_email).each do |membership|
+    address = email
+    Membership.where(email: email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
           content << "#{task.title}\n"
       end
@@ -81,11 +81,11 @@ class Notifier < ActionMailer::Base
   end
 
   #priority = 3 SMS only!
-  def text_notification(user_email)
+  def text_notification(email)
     content = ""
-    address = user_email
-    phone = User.where(email: user_email).first.phone
-    Membership.where(user_email: user_email).each do |membership|
+    address = email
+    phone = User.where(email: email).first.phone
+    Membership.where(email: email).each do |membership|
       Task.where(group_id: membership.group_id).each do |task|
         if task.priority == 3
           content << "#{task.title}\n"
