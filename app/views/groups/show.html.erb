@@ -46,7 +46,8 @@
     </div>
     <ul id='subtasks'>
       <% @memberships.each do |membership| %>
-        <li><%= membership.name.blank? && membership.email || membership.name %></li>
+          <%= gravatar_image_tag(membership.email, alt: membership.email) %><br />
+         <%= membership.name.blank? && membership.email || membership.name %>
         <div id="actions">
           <%= link_to 'Edit', [:edit, @group, membership] %> |
           <%= link_to 'Delete', [@group, membership],

@@ -8,6 +8,7 @@ gem 'bootstrap-sass', '2.1'
 gem 'cancan', '1.6.7'
 gem 'phony_rails'
 gem 'twilio-ruby', '~> 3.9.0'
+gem 'gravatar_image_tag'
 
 
 # Bundle edge Rails instead:
